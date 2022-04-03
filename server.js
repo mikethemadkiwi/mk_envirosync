@@ -118,8 +118,9 @@ onNet("mk_env:NISS", async ()=>{
 RegisterNetEvent("mk_env:hostdt")
 onNet("mk_env:hostdt", async (dtsource)=>{
    if(global.source==MKENVPlayers[0].source){
-       DateTime = dtsource
-       TriggerClientEvent('mk_env:dtupdate', -1, DateTime)
+    //    DateTime = dtsource
+       console.log(dtsource)
+    //    TriggerClientEvent('mk_env:dtupdate', -1, DateTime)
    }
    else{console.log('hostdt wot?')}
 });
