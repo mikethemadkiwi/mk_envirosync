@@ -52,7 +52,7 @@ onNet('mk_env:canhasdt', () => { // if i am host, this will send my date to ever
     let hYear = GetClockYear()
     let DOW = GetClockDayOfWeek()
     DateTime["Date"] = [hDay, hMonth, hYear, DOW];
-    TriggerServerEvent('mk_env:hostdt', DateTime)
+    TriggerServerEvent('mk_env:hostdt', DateTime["Date"])
 })
 ////////////
 RegisterNetEvent("mk_env:dtupdate")
