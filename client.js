@@ -21,6 +21,13 @@ function draw2screen(text, r, g, b, a, x, y, scale){
     AddTextComponentSubstringPlayerName(text)
     EndTextCommandDisplayText(x, y)
 }
+function updateDate(){
+    let hDay = GetClockDayOfMonth()
+    let hMonth = GetClockMonth()
+    let hYear = GetClockYear()
+    let DOW = GetClockDayOfWeek()
+    DateTime["Date"] = [hDay, hMonth, hYear, DOW];
+}
 ////////////
 let nisstimer = setTick(async() => {
     if( NetworkIsSessionStarted() ){
@@ -36,28 +43,21 @@ on('onClientGameTypeStart', ()=>{
     CGTS = true;
 })
 on('playerSpawned', ()=>{
-    let hDay = GetClockDayOfMonth()
-    let hMonth = GetClockMonth()
-    let hYear = GetClockYear()
-    let DOW = GetClockDayOfWeek()
-    DateTime["Date"] = [hDay, hMonth, hYear, DOW];
+    updateDate()
     emitNet('mk_env:PSPAWN', true)
     PSPAWN = true;
 });
 ////////////
 RegisterNetEvent("mk_env:canhasdt")
 onNet('mk_env:canhasdt', () => { // if i am host, this will send my date to everyone for sync.
-    let hDay = GetClockDayOfMonth()
-    let hMonth = GetClockMonth()
-    let hYear = GetClockYear()
-    let DOW = GetClockDayOfWeek()
-    DateTime["Date"] = [hDay, hMonth, hYear, DOW];
+    updateDate()
     TriggerServerEvent('mk_env:hostdt', DateTime["Date"])
 })
 ////////////
 RegisterNetEvent("mk_env:dtupdate")
 onNet('mk_env:dtupdate', (dtupdate) => {
     DateTime["Date"] = dtupdate
+    SetClockDate(DateTime["Date"][0],DateTime["Date"][1],DateTime["Date"][2])
 })
 ////////////
 
