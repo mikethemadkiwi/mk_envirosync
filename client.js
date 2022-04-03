@@ -57,7 +57,7 @@ onNet('mk_env:canhasdt', () => { // if i am host, this will send my date to ever
 ////////////
 RegisterNetEvent("mk_env:dtupdate")
 onNet('mk_env:dtupdate', (dtupdate) => {
-   
+   console.log(`${dtupdate[0]}`)
 })
 ////////////
 
