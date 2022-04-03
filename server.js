@@ -122,5 +122,7 @@ on('playerDropped', async (reason)=>{
 // GameTick
 //////////// 
 let SERVERTICK = setTick(async() => {
-    // let amihost = GetHostId()
+    if(MKENVPlayers[0] != null){
+        console.log(`gonna use ${MKENVPlayers[0].license} for host`)
+    }
 })
