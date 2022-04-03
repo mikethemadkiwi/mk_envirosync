@@ -33,11 +33,6 @@ on('onClientMapStart', ()=>{
     MAPSTART = true;
 })
 on('onClientGameTypeStart', ()=>{
-    let hDay = GetClockDayOfMonth()
-    let hMonth = GetClockMonth()
-    let hYear = GetClockYear()
-    let DOW = GetClockDayOfWeek()
-    DateTime["Date"] = [hDay, hMonth, hYear, DOW];
     CGTS = true;
 })
 on('playerSpawned', ()=>{
@@ -46,13 +41,17 @@ on('playerSpawned', ()=>{
     let hYear = GetClockYear()
     let DOW = GetClockDayOfWeek()
     DateTime["Date"] = [hDay, hMonth, hYear, DOW];
-    /// will this eb soon enough??? test how soon these values fill
     emitNet('mk_env:PSPAWN', true)
     PSPAWN = true;
 });
 ////////////
 RegisterNetEvent("mk_env:canhasdt")
 onNet('mk_env:canhasdt', () => { // if i am host, this will send my date to everyone for sync.
+    let hDay = GetClockDayOfMonth()
+    let hMonth = GetClockMonth()
+    let hYear = GetClockYear()
+    let DOW = GetClockDayOfWeek()
+    DateTime["Date"] = [hDay, hMonth, hYear, DOW];
     TriggerServerEvent('mk_env:hostdt', DateTime)
 })
 ////////////
