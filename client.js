@@ -6,6 +6,7 @@ PSPAWN = null
 DateTime = []
 WeatherQueue = []
 WindQueue = []
+Frozen = []
 ////////////
 function draw2screen(text, r, g, b, a, x, y, scale){
     SetTextFont(4)
@@ -35,10 +36,33 @@ on('onClientGameTypeStart', ()=>{
     CGTS = true;
 })
 on('playerSpawned', ()=>{
+    let hDay = GetClockDayOfMonth()
+    let hMonth = GetClockMonth()
+    let hYear = GetClockYear()
+    let DOW = GetClockDayOfWeek()
+    DateTime["Date"] = [hDay, hMonth, hYear, DOW];
+    /// will this eb soon enough??? test how soon these values fill
     emitNet('mk_env:PSPAWN', true)
     PSPAWN = true;
 });
 ////////////
+RegisterNetEvent("mk_env:canhasdt")
+onNet('mk_env:canhasdt', () => { // if i am host, this will send my date to everyone for sync.
+    TriggerServerEvent('mk_env:hostdt', DateTime)
+})
+////////////
+RegisterNetEvent("mk_env:dtupdate")
+onNet('mk_env:dtupdate', (dtupdate) => {
+    DateTime["Date"] = dtupdate["Date"]
+})
+////////////
+
+
+
+
+
+
+
 let ClientGameTimer = setTick(async() => {
     if( NISS==true ){       
         ClearOverrideWeather()
@@ -46,15 +70,9 @@ let ClientGameTimer = setTick(async() => {
         NetworkClearClockTimeOverride()
         DateTime["Time"] = NetworkGetGlobalMultiplayerClock();
         draw2screen(`Time[ ${DateTime["Time"][0]}:${DateTime["Time"][1]}:${DateTime["Time"][2]} ]`, 255, 255, 255, 255, 0.05, 0.77, 0.5)
-        let amihost = NetworkIsHost()
-        if(amihost==true){
-            let hDay = GetClockDayOfMonth()
-            let hMonth = GetClockMonth()
-            let hYear = GetClockYear()
-            let DOW = GetClockDayOfWeek()
-            DateTime["Date"] = [hDay, hMonth, hYear, DOW];
+            
             draw2screen(`isHost[ ${amihost} ]  DOW[ ${DateTime["Date"][3]} ] Date[ ${DateTime["Date"][0]}:${DateTime["Date"][1]}:${DateTime["Date"][2]} ]`, 255, 255, 255, 255, 0.05, 0.75, 0.5)
-        }
+
         // AdvanceClockTimeTo(DateTime[0][0], DateTime[0][1], DateTime[0][2]);
     }
 })
