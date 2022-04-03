@@ -122,6 +122,5 @@ on('playerDropped', async (reason)=>{
 // GameTick
 //////////// 
 let SERVERTICK = setTick(async() => {
-    let amihost = GetHostId()
-    console.log('host:',amihost)  
+    // let amihost = GetHostId()
 })
