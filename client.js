@@ -33,6 +33,11 @@ on('onClientMapStart', ()=>{
     MAPSTART = true;
 })
 on('onClientGameTypeStart', ()=>{
+    let hDay = GetClockDayOfMonth()
+    let hMonth = GetClockMonth()
+    let hYear = GetClockYear()
+    let DOW = GetClockDayOfWeek()
+    DateTime["Date"] = [hDay, hMonth, hYear, DOW];
     CGTS = true;
 })
 on('playerSpawned', ()=>{
