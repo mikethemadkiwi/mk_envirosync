@@ -74,7 +74,9 @@ let ClientGameTimer = setTick(async() => {
         NetworkClearClockTimeOverride()
         DateTime["Time"] = NetworkGetGlobalMultiplayerClock();
         draw2screen(`Time[ ${DateTime["Time"][0]}:${DateTime["Time"][1]}:${DateTime["Time"][2]} ]`, 255, 255, 255, 255, 0.05, 0.77, 0.5)
-        draw2screen(`DOW[ ${DateTime["Date"][3]} ] Date[ ${DateTime["Date"][0]}:${DateTime["Date"][1]}:${DateTime["Date"][2]} ]`, 255, 255, 255, 255, 0.05, 0.75, 0.5)
+        if(DateTime["Date"]!=null){
+            draw2screen(`DOW[ ${DateTime["Date"][3]} ] Date[ ${DateTime["Date"][0]}:${DateTime["Date"][1]}:${DateTime["Date"][2]} ]`, 255, 255, 255, 255, 0.05, 0.75, 0.5)
+        }
 
         // AdvanceClockTimeTo(DateTime[0][0], DateTime[0][1], DateTime[0][2]);
     }
