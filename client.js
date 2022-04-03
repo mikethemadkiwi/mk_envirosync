@@ -35,6 +35,7 @@ on('onClientGameTypeStart', ()=>{
     CGTS = true;
 })
 on('playerSpawned', ()=>{
+    emitNet('mk_env:PSPAWN', true)
     PSPAWN = true;
 });
 ////////////

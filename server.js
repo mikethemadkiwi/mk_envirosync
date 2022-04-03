@@ -123,6 +123,6 @@ on('playerDropped', async (reason)=>{
 //////////// 
 let SERVERTICK = setTick(async() => {
     if(MKENVPlayers[0] != null){
-        console.log(`gonna use ${MKENVPlayers[0].license} for host`)
+        console.log(`gonna use ${MKENVPlayers[0].source} for host`)
     }
 })
