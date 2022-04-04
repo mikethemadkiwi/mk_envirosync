@@ -74,7 +74,7 @@ let ClientGameTimer = setTick(async() => {
         AdvanceClockTimeTo(DateTime["Time"][0], DateTime["Time"][1], DateTime["Time"][2]);
         // weather 
         SetRainLevel(-1)   // -1 denotes using current weather max val
-        if(prevweatherhashname=='XMAS') {
+        if(GetPrevWeatherTypeHashName()=='XMAS') {
             SetForceVehicleTrails(true)
             SetForcePedFootstepsTracks(true)
         } else {
