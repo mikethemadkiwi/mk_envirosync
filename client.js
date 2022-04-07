@@ -7,10 +7,11 @@ DateTime = []
 WeatherQueue = []
 WindQueue = []
 Frozen = {
-    Time: false,
+    Time: true,
     Weather: false,
     Wind: false
 }
+FrozenTime = [12, 0, 0]
 ////////////
 function draw2screen(text, r, g, b, a, x, y, scale){
     SetTextFont(4)
@@ -52,9 +53,10 @@ on('playerSpawned', ()=>{
     PSPAWN = true;
 });
 ////////////
-RegisterNetEvent("mk_env:Frozen")
-onNet('mk_env:Frozen', (frozenObj) => { // if i am host, this will send my date to everyone for sync.
-   Frozen = frozenObj
+RegisterNetEvent("mk_env:setfrozen")
+onNet('mk_env:setfrozen', (fData) => { // if i am host, this will send my date to everyone for sync.
+   Frozen = fData.Frozen
+   FrozenTime= fData.FrozenTime
 })
 ////////////
 RegisterNetEvent("mk_env:canhasdt")
@@ -84,7 +86,7 @@ let ClientGameTimer = setTick(async() => {
             AdvanceClockTimeTo(DateTime["Time"][0], DateTime["Time"][1], DateTime["Time"][2]);
         }
         else{            
-			NetworkOverrideClockTime(DateTime["Time"][0], DateTime["Time"][1], DateTime["Time"][2])
+			NetworkOverrideClockTime(FrozenTime[0], FrozenTime[1], FrozenTime[2])
         }
         ///////////////////////////////////////
         // weather

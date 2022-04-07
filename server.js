@@ -43,6 +43,12 @@ class mkFunction {
             resolve(true);
         });
     }
+    SendFrozen(){            
+        let fData = {}
+        fData.FrozenTime = FrozenTime
+        fData.Frozen = EnvConf.Frozen
+        TriggerClientEvent('mk_env:setfrozen', -1, fData)
+    }
 }
 ////////////
 MKENVPlayers = []
@@ -62,6 +68,7 @@ class serverIdentifiers {
 }
 ////////////
 DateTime = []
+FrozenTime = [12,00,00]
 WeatherQueue = []
 WindQueue = []
 ////////////
@@ -113,6 +120,11 @@ onNet("mk_env:NISS", async ()=>{
     let Identifiers = new serverIdentifiers(global.source);
     MKENVPlayers.push(Identifiers)
     console.log(`Syncing[${global.source}] ${Identifiers.name}`)
+});
+RegisterNetEvent("mk_env:frozenstate")
+onNet("mk_env:frozenstate", async ()=>{
+    let _u = new mkFunction;
+    _u.SendFrozen()
 });
 RegisterNetEvent("mk_env:hostdt")
 onNet("mk_env:hostdt", async (dtsource)=>{
