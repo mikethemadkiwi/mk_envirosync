@@ -7,7 +7,7 @@ DateTime = []
 WeatherQueue = []
 WindQueue = []
 Frozen = {
-    Time: true,
+    Time: false,
     Weather: false,
     Wind: false
 }
@@ -59,7 +59,7 @@ on('playerSpawned', ()=>{
 RegisterNetEvent("mk_env:setfrozen")
 onNet('mk_env:setfrozen', (fData) => { // if i am host, this will send my date to everyone for sync.
    Frozen = fData.Frozen
-   FrozenTime= fData.FrozenTime
+   FrozenTime = fData.FrozenTime
 })
 ////////////
 RegisterNetEvent("mk_env:canhasdt")
