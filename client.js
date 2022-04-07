@@ -6,7 +6,11 @@ PSPAWN = null
 DateTime = []
 WeatherQueue = []
 WindQueue = []
-Frozen = []
+Frozen = {
+    Time: false,
+    Weather: false,
+    Wind: false
+}
 ////////////
 function draw2screen(text, r, g, b, a, x, y, scale){
     SetTextFont(4)
@@ -48,6 +52,11 @@ on('playerSpawned', ()=>{
     PSPAWN = true;
 });
 ////////////
+RegisterNetEvent("mk_env:Frozen")
+onNet('mk_env:Frozen', (frozenObj) => { // if i am host, this will send my date to everyone for sync.
+   Frozen = frozenObj
+})
+////////////
 RegisterNetEvent("mk_env:canhasdt")
 onNet('mk_env:canhasdt', () => { // if i am host, this will send my date to everyone for sync.
     updateDate()
@@ -57,7 +66,9 @@ onNet('mk_env:canhasdt', () => { // if i am host, this will send my date to ever
 RegisterNetEvent("mk_env:dtupdate")
 onNet('mk_env:dtupdate', (dtupdate) => {
     DateTime["Date"] = dtupdate
-    SetClockDate(DateTime["Date"][0],DateTime["Date"][1],DateTime["Date"][2])
+    if (!Frozen.Time) {
+        SetClockDate(DateTime["Date"][0],DateTime["Date"][1],DateTime["Date"][2])
+    }
 })
 ////////////
 let ClientGameTimer = setTick(async() => {
@@ -65,21 +76,43 @@ let ClientGameTimer = setTick(async() => {
         ClearOverrideWeather()
         ClearWeatherTypePersist() 
         NetworkClearClockTimeOverride()
-        //time
-        DateTime["Time"] = NetworkGetGlobalMultiplayerClock();
+        ///////////////////////////////////////
+        // time freeze or update
+        ///////////////////////////////////////        
+        if (!Frozen.Time) {
+            DateTime["Time"] = NetworkGetGlobalMultiplayerClock();
+            AdvanceClockTimeTo(DateTime["Time"][0], DateTime["Time"][1], DateTime["Time"][2]);
+        }
+        else{            
+			NetworkOverrideClockTime(DateTime["Time"][0], DateTime["Time"][1], DateTime["Time"][2])
+        }
+        ///////////////////////////////////////
+        // weather
+        ///////////////////////////////////////
+        if (!Frozen.Weather) {
+            SetRainLevel(-1)   // -1 denotes using current weather max val (0.0 - 1.0)
+            if(GetPrevWeatherTypeHashName()=='XMAS') {
+                SetForceVehicleTrails(true)
+                SetForcePedFootstepsTracks(true)
+            } else {
+                SetForceVehicleTrails(false)
+                SetForcePedFootstepsTracks(false)
+            }
+        }
+        else{
+
+        }
+        // Wind    
+        if (!Frozen.Wind) {
+
+        }
+        ///////////////////////////////////////
+        // Draws or LastLogic
+        ///////////////////////////////////////
         draw2screen(`Time[ ${DateTime["Time"][0]}:${DateTime["Time"][1]}:${DateTime["Time"][2]} ]`, 255, 255, 255, 255, 0.02, 0.15, 0.4)
         if(DateTime["Date"]!=null){
             draw2screen(`DOW[ ${DateTime["Date"][3]} ] Date[ ${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} ]`, 255, 255, 255, 255, 0.02, 0.17, 0.4)
         }
-        AdvanceClockTimeTo(DateTime["Time"][0], DateTime["Time"][1], DateTime["Time"][2]);
-        // weather 
-        SetRainLevel(-1)   // -1 denotes using current weather max val
-        if(GetPrevWeatherTypeHashName()=='XMAS') {
-            SetForceVehicleTrails(true)
-            SetForcePedFootstepsTracks(true)
-        } else {
-            SetForceVehicleTrails(false)
-            SetForcePedFootstepsTracks(false)
-        }
+        ///////////////////////////////////////
     }
 })
