@@ -7,7 +7,7 @@ DateTime = []
 WeatherQueue = []
 WindQueue = []
 Frozen = {
-    Time: false,
+    Time: true,
     Weather: false,
     Wind: false
 }
@@ -87,9 +87,11 @@ let ClientGameTimer = setTick(async() => {
         if (!Frozen.Time) {
             DateTime["Time"] = NetworkGetGlobalMultiplayerClock();
             AdvanceClockTimeTo(DateTime["Time"][0], DateTime["Time"][1], DateTime["Time"][2]);
+            draw2screen(`Time[ ${DateTime["Time"][0]}:${DateTime["Time"][1]}:${DateTime["Time"][2]} ]`, 255, 255, 255, 255, 0.02, 0.15, 0.4)
         }
         else{            
 			NetworkOverrideClockTime(FrozenTime[0], FrozenTime[1], FrozenTime[2])
+            draw2screen(`Time[ ${FrozenTime[0]}:${FrozenTime[1]}:${FrozenTime[2]} ]`, 255, 255, 255, 255, 0.02, 0.15, 0.4)
         }
         ///////////////////////////////////////
         // weather
@@ -113,8 +115,7 @@ let ClientGameTimer = setTick(async() => {
         }
         ///////////////////////////////////////
         // Draws or LastLogic
-        ///////////////////////////////////////
-        draw2screen(`Time[ ${DateTime["Time"][0]}:${DateTime["Time"][1]}:${DateTime["Time"][2]} ]`, 255, 255, 255, 255, 0.02, 0.15, 0.4)
+        /////////////////////////////////////// 
         if(DateTime["Date"]!=null){
             draw2screen(`DOW[ ${DateTime["Date"][3]} ] Date[ ${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} ]`, 255, 255, 255, 255, 0.02, 0.17, 0.4)
         }
