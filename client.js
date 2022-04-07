@@ -37,6 +37,9 @@ function updateDate(){
 let nisstimer = setTick(async() => {
     if( NetworkIsSessionStarted() ){
         emitNet('mk_env:NISS', true)
+        //defaults for DT
+        DateTime["Time"] = NetworkGetGlobalMultiplayerClock();
+        updateDate()
         NISS = true;
         clearTick(nisstimer);
     }
