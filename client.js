@@ -7,7 +7,7 @@ DateTime = []
 WeatherQueue = []
 WindQueue = []
 Frozen = {
-    Time: true,
+    Time: false,
     Weather: false,
     Wind: false
 }
