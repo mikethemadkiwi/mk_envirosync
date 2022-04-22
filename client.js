@@ -104,9 +104,6 @@ let ClientGameTimer = setTick(async() => {
         let wPrev = GetPrevWeatherTypeHashName();
         let wNext = GetNextWeatherTypeHashName();
         let wTrans = GetWeatherTypeTransition();
-        for (const key in wTrans) {
-            console.log(key, wTrans[key])
-        }
         if (!Frozen.Weather) {
             if(GetPrevWeatherTypeHashName()=='XMAS') {
                 SetForceVehicleTrails(true)
