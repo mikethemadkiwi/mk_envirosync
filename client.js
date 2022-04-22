@@ -86,6 +86,7 @@ let ClientGameTimer = setTick(async() => {
         ClearOverrideWeather()
         ClearWeatherTypePersist() 
         NetworkClearClockTimeOverride()
+        DrawStartLoc = 0.05;
         draw2screen(`~o~[ MK_EnviroSync ]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4);
         DrawStartLoc = DrawStartLoc + 0.02;
         ///////////////////////////////////////
