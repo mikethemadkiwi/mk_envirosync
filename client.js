@@ -133,7 +133,7 @@ let ClientGameTimer = setTick(async() => {
         // let percwTrans = wTrans.toFixed(3)
         let perc1 = wTrans[2].toFixed(2);
         let perc2 = perc1 * 100;
-        draw2screen(`~o~Weather[ ~w~${wTrans[0]} | ${perc2}% | ${wTrans[1]}~o~]`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
+        draw2screen(`~o~Weather[ ~w~${wPrev}{${wTrans[0]}} | ${perc2}% | ${wNext}{${wTrans[1]}}~o~]`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
         ///////////////////////////////////////
     }
 })
