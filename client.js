@@ -14,6 +14,24 @@ Frozen = {
 FrozenTime = [12, 0, 0]
 ////////////
 DrawStartLoc = 0.05
+////////////
+WeatherTypes=[
+    {hashKey: -1750463879, hex: 0x97AA0A79, hashName: "EXTRASUNNY"},
+    {hashKey: 916995460, hex: 0x36A83D84, hashName: "CLEAR"},
+    {hashKey: 821931868, hex: 0x30FDAF5C, hashName: "CLOUDS"},
+    {hashKey: -1148613331, hex: 0xBB898D2D, hashName: "OVERCAST"},
+    {hashKey: 1420204096, hex: 0x54A69840, hashName: "RAIN"},
+    {hashKey: 1840358669, hex: 0x6DB1A50D, hashName: "CLEARING"},
+    {hashKey: -1233681761, hex: 0xB677829F, hashName: "THUNDER"},
+    {hashKey: 282916021, hex: 0x10DCF4B5, hashName: "SMOG"},
+    {hashKey: -1368164796, hex: 0xAE737644, hashName: "FOGGY"},
+    {hashKey: -1429616491, hex: 0xAAC9C895, hashName: "XMAS"},
+    {hashKey: 603685163, hex: 0x23FB812B, hashName: "SNOWLIGHT"},
+    {hashKey: 669657108, hex: 0x27EA2814, hashName: "BLIZZARD"},
+    {hashKey: -921030142, hex: null, hashName: "HALLOWEEN"},
+    {hashKey: -273223690, hex: null, hashName: "SNOW"},
+    {hashKey: -1530260698, hex: null, hashName: "NEUTRAL"}
+];
 function draw2screen(text, r, g, b, a, x, y, scale){
     SetTextFont(4)
     SetTextProportional(true)
@@ -133,33 +151,11 @@ let ClientGameTimer = setTick(async() => {
         ///////////////////////////////////////
         // Draws or LastLogic
         /////////////////////////////////////// 
-
-////////////
-WeatherTypes=[
-    {hashKey: -1750463879, hex: 0x97AA0A79, hashName: "EXTRASUNNY"},
-    {hashKey: 916995460, hex: 0x36A83D84, hashName: "CLEAR"},
-    {hashKey: 821931868, hex: 0x30FDAF5C, hashName: "CLOUDS"},
-    {hashKey: -1148613331, hex: 0xBB898D2D, hashName: "OVERCAST"},
-    {hashKey: 1420204096, hex: 0x54A69840, hashName: "RAIN"},
-    {hashKey: 1840358669, hex: 0x6DB1A50D, hashName: "CLEARING"},
-    {hashKey: -1233681761, hex: 0xB677829F, hashName: "THUNDER"},
-    {hashKey: 282916021, hex: 0x10DCF4B5, hashName: "SMOG"},
-    {hashKey: -1368164796, hex: 0xAE737644, hashName: "FOGGY"},
-    {hashKey: -1429616491, hex: 0xAAC9C895, hashName: "XMAS"},
-    {hashKey: 603685163, hex: 0x23FB812B, hashName: "SNOWLIGHT"},
-    {hashKey: 669657108, hex: 0x27EA2814, hashName: "BLIZZARD"},
-    {hashKey: -921030142, hex: null, hashName: "HALLOWEEN"},
-    {hashKey: -273223690, hex: null, hashName: "SNOW"},
-    {hashKey: -1530260698, hex: null, hashName: "NEUTRAL"}
-];
-
-
         if(DateTime["Date"]!=null){
             let dDay = DayOfWeekInt(DateTime["Date"][3])
             draw2screen(`~o~DOW[~w~${dDay} ~o~] Date[ ~w~${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} ~o~]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
             DrawStartLoc = DrawStartLoc + 0.02;
         }
-        // let percwTrans = wTrans.toFixed(3)
         let perc1 = wTrans[2].toFixed(2);
         let perc2 = perc1 * 100;
         let prevName = WeatherTypes.map(function(id) { return id.hashKey; }).indexOf(wPrev);
