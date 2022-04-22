@@ -33,6 +33,10 @@ function updateDate(){
     let DOW = GetClockDayOfWeek()
     DateTime["Date"] = [hDay, hMonth, hYear, DOW];
 }
+function DayOfWeekInt(Dint){
+    let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+    return days[Dint]
+}
 ////////////
 let nisstimer = setTick(async() => {
     if( NetworkIsSessionStarted() ){
@@ -81,17 +85,18 @@ let ClientGameTimer = setTick(async() => {
         ClearOverrideWeather()
         ClearWeatherTypePersist() 
         NetworkClearClockTimeOverride()
+        draw2screen(`~o~[ MK_EnviroSync ]`, 255, 255, 255, 255, 0.02, 0.13, 0.4)
         ///////////////////////////////////////
         // time freeze or update
         ///////////////////////////////////////        
         if (!Frozen.Time) {
             DateTime["Time"] = NetworkGetGlobalMultiplayerClock();
             AdvanceClockTimeTo(DateTime["Time"][0], DateTime["Time"][1], DateTime["Time"][2]);
-            draw2screen(`Time[ ${DateTime["Time"][0]}:${DateTime["Time"][1]}:${DateTime["Time"][2]} ]`, 255, 255, 255, 255, 0.02, 0.15, 0.4)
+            draw2screen(`~o~Time[~w~ ${DateTime["Time"][0]}:${DateTime["Time"][1]}:${DateTime["Time"][2]}~o~ ]`, 255, 255, 255, 255, 0.02, 0.15, 0.4)
         }
         else{            
 			NetworkOverrideClockTime(FrozenTime[0], FrozenTime[1], FrozenTime[2])
-            draw2screen(`Time[ ${FrozenTime[0]}:${FrozenTime[1]}:${FrozenTime[2]} ]`, 255, 255, 255, 255, 0.02, 0.15, 0.4)
+            draw2screen(`~o~Time[ ~w~${FrozenTime[0]}:${FrozenTime[1]}:${FrozenTime[2]} ~o~]`, 255, 255, 255, 255, 0.02, 0.15, 0.4)
         }
         ///////////////////////////////////////
         // weather
@@ -122,9 +127,11 @@ let ClientGameTimer = setTick(async() => {
         // Draws or LastLogic
         /////////////////////////////////////// 
         if(DateTime["Date"]!=null){
-            draw2screen(`DOW[ ${DateTime["Date"][3]} ] Date[ ${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} ]`, 255, 255, 255, 255, 0.02, 0.17, 0.4)
+            let dDay = DayOfWeekInt(DateTime["Date"][3])
+            draw2screen(`~o~Date[ ${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} DOW: ${dDay} ~o~]`, 255, 255, 255, 255, 0.02, 0.17, 0.4)
         }
-        draw2screen(`Weather[ ${wPrev}/${wNext} ] ${wTrans}%`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
+        let percwTrans = +wTrans.toFixed(3)
+        draw2screen(`~o~Weather[ ${wPrev}/${wNext} ] ${percwTrans}%~o~`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
         ///////////////////////////////////////
     }
 })
