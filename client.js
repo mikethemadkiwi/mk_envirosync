@@ -96,10 +96,10 @@ let ClientGameTimer = setTick(async() => {
         ///////////////////////////////////////
         // weather
         ///////////////////////////////////////
+        let wPrev = GetPrevWeatherTypeHashName();
+        let wNext = GetNextWeatherTypeHashName();
+        let wtransP, wtransN, wTrans = GetWeatherTypeTransition();
         if (!Frozen.Weather) {
-            let wPrev = GetPrevWeatherTypeHashName();
-            let wNext = GetNextWeatherTypeHashName();
-            let wtransP, wtransN, wTrans = GetWeatherTypeTransition();
             if(GetPrevWeatherTypeHashName()=='XMAS') {
                 SetForceVehicleTrails(true)
                 SetForcePedFootstepsTracks(true)
