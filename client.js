@@ -162,7 +162,6 @@ WeatherTypes=[
         let perc2 = perc1 * 100;
         let prevName = WeatherTypes.map(function(id) { return id.hashKey; }).indexOf(wPrev);
         let nextName = WeatherTypes.map(function(id) { return id.hashKey; }).indexOf(wNext);
-        console.log(prevName)
         draw2screen(`~o~Weather[ ~w~${WeatherTypes[prevName].hashName} | ${perc2}% | ${WeatherTypes[nextName].hashName}~o~]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
         DrawStartLoc = DrawStartLoc + 0.02;
         ///////////////////////////////////////
