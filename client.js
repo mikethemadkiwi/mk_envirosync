@@ -166,7 +166,7 @@ WeatherTypes=[
         let nextName = WeatherTypes.map(function(id) { return id.hashKey; }).indexOf(wNext);
         draw2screen(`~o~Weather[ ~w~${WeatherTypes[prevName].hashName} | ${perc2}% | ${WeatherTypes[nextName].hashName}~o~]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
         DrawStartLoc = DrawStartLoc + 0.02;
-        draw2screen(`~o~Wind[ ~w~Dir: ${windDir}° Speed:${windSpeed}~o~]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
+        draw2screen(`~o~Wind[ ~w~Speed:${windSpeed.toFixed(2)} Dir: ${windDir}°~o~]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
         DrawStartLoc = DrawStartLoc + 0.02;
         ///////////////////////////////////////
     }
