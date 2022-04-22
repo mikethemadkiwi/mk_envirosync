@@ -134,7 +134,8 @@ let ClientGameTimer = setTick(async() => {
             draw2screen(`~o~DOW[~w~${dDay} ~o~] Date[ ~w~${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} ~o~]`, 255, 255, 255, 255, 0.02, 0.17, 0.4)
         }
         // let percwTrans = wTrans.toFixed(3)
-        draw2screen(`~o~Weather[ ~w~${wTrans[3]}%~o~]`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
+        let perc = (wTrans[2].toFixed(2) * 100)
+        draw2screen(`~o~Weather[ ~w~${wTrans[0]} < ${perc}% > ${wTrans[1]}~o~]`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
         ///////////////////////////////////////
     }
 })
