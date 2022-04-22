@@ -13,6 +13,7 @@ Frozen = {
 }
 FrozenTime = [12, 0, 0]
 ////////////
+DrawStartLoc = 0.05
 function draw2screen(text, r, g, b, a, x, y, scale){
     SetTextFont(4)
     SetTextProportional(true)
@@ -85,18 +86,21 @@ let ClientGameTimer = setTick(async() => {
         ClearOverrideWeather()
         ClearWeatherTypePersist() 
         NetworkClearClockTimeOverride()
-        draw2screen(`~o~[ MK_EnviroSync ]`, 255, 255, 255, 255, 0.02, 0.13, 0.4)
+        draw2screen(`~o~[ MK_EnviroSync ]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4);
+        DrawStartLoc = DrawStartLoc + 0.02;
         ///////////////////////////////////////
         // time freeze or update
         ///////////////////////////////////////        
         if (!Frozen.Time) {
             DateTime["Time"] = NetworkGetGlobalMultiplayerClock();
             AdvanceClockTimeTo(DateTime["Time"][0], DateTime["Time"][1], DateTime["Time"][2]);
-            draw2screen(`~o~Time[~w~ ${DateTime["Time"][0]}:${DateTime["Time"][1]}:${DateTime["Time"][2]}~o~ ]`, 255, 255, 255, 255, 0.02, 0.15, 0.4)
+            draw2screen(`~o~Time[~w~ ${DateTime["Time"][0]}:${DateTime["Time"][1]}:${DateTime["Time"][2]}~o~ ]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
+            DrawStartLoc = DrawStartLoc + 0.02;
         }
         else{            
 			NetworkOverrideClockTime(FrozenTime[0], FrozenTime[1], FrozenTime[2])
-            draw2screen(`~o~Time[ ~w~${FrozenTime[0]}:${FrozenTime[1]}:${FrozenTime[2]} ~o~]`, 255, 255, 255, 255, 0.02, 0.15, 0.4)
+            draw2screen(`~o~Time[ ~w~${FrozenTime[0]}:${FrozenTime[1]}:${FrozenTime[2]} ~o~]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
+            DrawStartLoc = DrawStartLoc + 0.02;
         }
         ///////////////////////////////////////
         // weather
@@ -149,7 +153,8 @@ WeatherTypes=[
 
         if(DateTime["Date"]!=null){
             let dDay = DayOfWeekInt(DateTime["Date"][3])
-            draw2screen(`~o~DOW[~w~${dDay} ~o~] Date[ ~w~${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} ~o~]`, 255, 255, 255, 255, 0.02, 0.17, 0.4)
+            draw2screen(`~o~DOW[~w~${dDay} ~o~] Date[ ~w~${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} ~o~]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
+            DrawStartLoc = DrawStartLoc + 0.02;
         }
         // let percwTrans = wTrans.toFixed(3)
         let perc1 = wTrans[2].toFixed(2);
@@ -157,7 +162,8 @@ WeatherTypes=[
         let prevName = WeatherTypes.map(function(id) { return id.hashKey; }).indexOf(wPrev);
         let nextName = WeatherTypes.map(function(id) { return id.hashKey; }).indexOf(wNext);
         console.log(prevName)
-        draw2screen(`~o~Weather[ ~w~${WeatherTypes[prevName].hashName} | ${perc2}% | ${WeatherTypes[nextName].hashName}~o~]`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
+        draw2screen(`~o~Weather[ ~w~${WeatherTypes[prevName].hashName} | ${perc2}% | ${WeatherTypes[nextName].hashName}~o~]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
+        DrawStartLoc = DrawStartLoc + 0.02;
         ///////////////////////////////////////
     }
 })
