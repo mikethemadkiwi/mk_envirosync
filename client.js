@@ -130,8 +130,8 @@ let ClientGameTimer = setTick(async() => {
             let dDay = DayOfWeekInt(DateTime["Date"][3])
             draw2screen(`~o~Date[ ${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} DOW: ${dDay} ~o~]`, 255, 255, 255, 255, 0.02, 0.17, 0.4)
         }
-        let percwTrans = wTrans.toFixed(3)
-        draw2screen(`~o~Weather[ ${wPrev}/${wNext} ] ${percwTrans}%~o~`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
+        // let percwTrans = wTrans.toFixed(3)
+        draw2screen(`~o~Weather[ ${wPrev}/${wNext} ] ${wTrans}%~o~`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
         ///////////////////////////////////////
     }
 })
