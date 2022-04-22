@@ -97,7 +97,9 @@ let ClientGameTimer = setTick(async() => {
         // weather
         ///////////////////////////////////////
         if (!Frozen.Weather) {
-            SetRainLevel(-1)   // -1 denotes using current weather max val (0.0 - 1.0)
+            let wPrev = GetPrevWeatherTypeHashName();
+            let wNext = GetNextWeatherTypeHashName();
+            let wtransP, wtransN, wTrans = GetWeatherTypeTransition();
             if(GetPrevWeatherTypeHashName()=='XMAS') {
                 SetForceVehicleTrails(true)
                 SetForcePedFootstepsTracks(true)
@@ -113,12 +115,16 @@ let ClientGameTimer = setTick(async() => {
         if (!Frozen.Wind) {
 
         }
+        else {
+
+        }
         ///////////////////////////////////////
         // Draws or LastLogic
         /////////////////////////////////////// 
         if(DateTime["Date"]!=null){
             draw2screen(`DOW[ ${DateTime["Date"][3]} ] Date[ ${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} ]`, 255, 255, 255, 255, 0.02, 0.17, 0.4)
         }
+        draw2screen(`Weather[ ${wPrev}/${wNext} ] ${wTrans}%`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
         ///////////////////////////////////////
     }
 })

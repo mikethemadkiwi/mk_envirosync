@@ -9,7 +9,6 @@ EnvConf = {
             Speed: 0.0,
             Direction: 0.0
         }
-        // calendar dates??
     },
     Frozen:{
         Time: false,
@@ -73,7 +72,7 @@ WeatherQueue = []
 WindQueue = []
 ////////////
 WeatherTypes=[];
-WeatherTypes["EXTRASUNNY"] = {hashName: "EXTRASUNNY", hashKey: -1750463879, hex: 0x97AA0A79}
+WeatherTypes["EXTRASUNNY"] = {hashKey: -1750463879, hex: 0x97AA0A79}
 WeatherTypes["CLEAR"] = {hashKey: 916995460, hex: 0x36A83D84}
 WeatherTypes["CLOUDS"] = {hashKey: 821931868, hex: 0x30FDAF5C}
 WeatherTypes["OVERCAST"] = {hashKey: -1148613331, hex: 0xBB898D2D}
