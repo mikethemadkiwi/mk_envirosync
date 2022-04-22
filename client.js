@@ -104,6 +104,9 @@ let ClientGameTimer = setTick(async() => {
         let wPrev = GetPrevWeatherTypeHashName();
         let wNext = GetNextWeatherTypeHashName();
         let wTrans = GetWeatherTypeTransition();
+        wTrans.forEach(trans => {
+            console.log(trans)    
+        });
         if (!Frozen.Weather) {
             if(GetPrevWeatherTypeHashName()=='XMAS') {
                 SetForceVehicleTrails(true)
@@ -128,7 +131,7 @@ let ClientGameTimer = setTick(async() => {
         /////////////////////////////////////// 
         if(DateTime["Date"]!=null){
             let dDay = DayOfWeekInt(DateTime["Date"][3])
-            draw2screen(`~o~Date[ ~w~${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} DOW: ${dDay} ~o~]`, 255, 255, 255, 255, 0.02, 0.17, 0.4)
+            draw2screen(`~o~DOW[~w~${dDay} ~o~] Date[ ~w~${DateTime["Date"][0]}/${DateTime["Date"][1]}/${DateTime["Date"][2]} ~o~]`, 255, 255, 255, 255, 0.02, 0.17, 0.4)
         }
         // let percwTrans = wTrans.toFixed(3)
         draw2screen(`~o~Weather[ ~w~${wTrans[3]}%~o~]`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
