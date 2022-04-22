@@ -154,8 +154,7 @@ WeatherTypes=[
         // let percwTrans = wTrans.toFixed(3)
         let perc1 = wTrans[2].toFixed(2);
         let perc2 = perc1 * 100;
-        
-        let prevName = WeatherTypes.map(function(weather) { return weather; }).indexOf(wPrev);
+        let prevName = WeatherTypes.map(function(id) { return id.hashKey; }).indexOf(wPrev);
         console.log(prevName)
         draw2screen(`~o~Weather[ ~w~${wPrev} | ${perc2}% | ${wNext}~o~]`, 255, 255, 255, 255, 0.02, 0.19, 0.4)
         ///////////////////////////////////////
