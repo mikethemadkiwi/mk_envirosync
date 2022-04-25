@@ -113,11 +113,17 @@ let ClientGameTimer = setTick(async() => {
         if (!Frozen.Time) {
             DateTime["Time"] = NetworkGetGlobalMultiplayerClock();
             AdvanceClockTimeTo(DateTime["Time"][0], DateTime["Time"][1], DateTime["Time"][2]);
+            if(DateTime["Time"][0]<10){DateTime["Time"][0]=`0${DateTime["Time"][0]}`}
+            if(DateTime["Time"][1]<10){DateTime["Time"][1]=`0${DateTime["Time"][1]}`}
+            if(DateTime["Time"][2]<10){DateTime["Time"][2]=`0${DateTime["Time"][2]}`}
             draw2screen(`~o~Time[~w~ ${DateTime["Time"][0]}:${DateTime["Time"][1]}:${DateTime["Time"][2]}~o~ ]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
             DrawStartLoc = DrawStartLoc + 0.02;
         }
         else{            
 			NetworkOverrideClockTime(FrozenTime[0], FrozenTime[1], FrozenTime[2])
+            if(DateTime["Time"][0]<10){DateTime["Time"][0]=`0${DateTime["Time"][0]}`}
+            if(DateTime["Time"][1]<10){DateTime["Time"][1]=`0${DateTime["Time"][1]}`}
+            if(DateTime["Time"][2]<10){DateTime["Time"][2]=`0${DateTime["Time"][2]}`}
             draw2screen(`~o~Time[ ~w~${FrozenTime[0]}:${FrozenTime[1]}:${FrozenTime[2]} ~o~]`, 255, 255, 255, 255, 0.02, DrawStartLoc, 0.4)
             DrawStartLoc = DrawStartLoc + 0.02;
         }
@@ -149,6 +155,12 @@ let ClientGameTimer = setTick(async() => {
 
         }
         ///////////////////////////////////////
+        // Clouds and Camera Filter
+        ///////////////////////////////////////
+
+        // https://docs.fivem.net/natives/?_0xFC4842A34657BFCB
+
+        ///////////////////////////////////////
         // Draws or LastLogic
         /////////////////////////////////////// 
         if(DateTime["Date"]!=null){
@@ -167,4 +179,3 @@ let ClientGameTimer = setTick(async() => {
         ///////////////////////////////////////
     }
 })
-// https://docs.fivem.net/natives/?_0xFC4842A34657BFCB
